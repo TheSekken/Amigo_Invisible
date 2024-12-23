@@ -22,6 +22,8 @@
             background: url('https://i.postimg.cc/SNXmGPQw/Image-Sequence-011-0000.png') no-repeat center center fixed;
             background-size: cover;
             position: relative;
+            transform-origin: center center;
+            transition: transform 0.5s ease;
         }
 
         body.overlay::before {
@@ -200,10 +202,12 @@
                 document.body.style.transform = 'rotate(90deg)';
                 document.body.style.width = window.innerHeight + 'px';
                 document.body.style.height = window.innerWidth + 'px';
+                document.body.style.transformOrigin = 'center center';
             } else {
                 document.body.style.transform = 'rotate(0deg)';
                 document.body.style.width = '100%';
                 document.body.style.height = '100vh';
+                document.body.style.transformOrigin = 'center center';
             }
         });
     </script>
