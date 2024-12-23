@@ -3,35 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensaje para mi Tía</title>
+    <title>PISTA</title>
     <style>
+        /* Fuentes e inicio */
+        @import url('https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
-            padding: 20px;
-            background-color: #f3f4f6;
-            color: #333;
+            padding: 0;
+            font-family: "Modern Antiqua", serif;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background: url('https://i.postimg.cc/SNXmGPQw/Image-Sequence-011-0000.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
         }
+
+        body.overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        h1, .message-box, .buttons-container {
+            position: relative;
+            z-index: 1;
+        }
+
         h1 {
-            color: #1d4ed8;
+            font-size: 3rem;
+            color: #5CACF2;
+            text-shadow: 0 0 10px #9937A6, 0 0 20px #9937A6;
+            transition: opacity 0.5s ease;
         }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
+
+        h1.hidden {
+            opacity: 0;
+        }
+
+        .message-box {
+            text-align: center;
+            padding: 20px;
+            border: 3px dashed #9937A6;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 10px #9937A6;
+            margin: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            display: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .message-box.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        button {
+            font-family: "Modern Antiqua", serif;
+            font-size: 1.2rem;
+            color: #FFFFFF;
+            background-color: #607338;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 5px #A66249;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px #A66249;
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px #A66249;
+        }
+
+        .image-button-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+        }
+
+        .image-button-container.visible {
+            display: flex;
+        }
+
+        .message-box p {
+            margin-bottom: 10px;
+        }
+
+        .message-box p:nth-child(2) {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .message-box p:nth-child(5) {
+            margin-bottom: 30px;
+        }
+
+        .message-box p:first-child {
+            margin-top: 0;
+            font-size: 2rem;
         }
     </style>
 </head>
-<body>
-    <h1>¡Hola, Tía querida! 😊</h1>
-    <p>Quiero aprovechar este mensaje para agradecerte:</p>
-    <ul style="list-style: none; padding: 0;">
-        <li>💊 Por siempre estar ahí para mí.</li>
-        <li>💊 Por tus palabras de ánimo.</li>
-        <li>💊 Y especialmente por todas las vitaminas que me regalabas.</li>
-    </ul>
-    <p>Espero que este año recibas una dosis extra de cariño y gratitud.</p>
-    <p><strong>¡Eres la mejor farmacéutica y tía del mundo!</strong></p>
-    <p>Con mucho cariño, <br>Tu Amigo Invisible.</p>
+<body class="overlay">
+    <h1 id="title">¡PISTA!</h1>
+    <div class="message-box" id="message-box">
+        <p>¡Hola, Tía querida!</p>
+        <p>Quiero agradecerte:</p>
+        <p>&#x2764; Por siempre estar ahí para mí. &#x2764;</p>
+        <p>&#x1F4D6; Por haberme enseñado tanto. &#x1F4D6;</p>
+        <p>&#x1F48A; Y por todas las vitaminas que me regalaste. &#x1F48A;</p>
+        <p>¡Te quiero mucho!</p>
+        <p>Tu Amigo Invisible</p>
+    </div>
+    <div class="buttons-container">
+        <button id="toggle-button" onclick="toggleMensaje()">Mostrar pista</button>
+        <button id="view-image-button" onclick="viewImage()">Ver imagen</button>
+    </div>
+    <div class="image-button-container" id="image-button-container">
+        <button onclick="resetView()">Volver al texto</button>
+    </div>
+
+    <script>
+        function toggleMensaje() {
+            const mensaje = document.getElementById('message-box');
+            const boton = document.getElementById('toggle-button');
+
+            if (mensaje.classList.contains('active')) {
+                mensaje.classList.remove('active');
+                setTimeout(() => { mensaje.style.display = 'none'; }, 500); // Esperar a que la transición termine
+                boton.textContent = 'Mostrar pista';
+            } else {
+                mensaje.style.display = 'block';
+                setTimeout(() => { mensaje.classList.add('active'); }, 10); // Esperar a que el display: block; se aplique
+                boton.textContent = 'Ocultar pista';
+            }
+        }
+
+        function viewImage() {
+            document.body.classList.remove('overlay'); // Eliminar oscurecimiento
+            document.getElementById('title').classList.add('hidden'); // Ocultar título
+            document.querySelector('.buttons-container').style.display = 'none'; // Ocultar botones
+            document.getElementById('message-box').classList.remove('active'); // Ocultar cuadro de texto
+            document.getElementById('message-box').style.display = 'none'; // Asegurar que el texto desaparezca
+            document.getElementById('image-button-container').classList.add('visible'); // Mostrar botón centrado
+        }
+
+        function resetView() {
+            document.body.classList.add('overlay'); // Restaurar oscurecimiento
+            document.getElementById('title').classList.remove('hidden'); // Mostrar título
+            document.querySelector('.buttons-container').style.display = 'flex'; // Mostrar botones
+            document.getElementById('image-button-container').classList.remove('visible'); // Ocultar botón centrado
+
+            // Resetear y asegurar que el texto esté oculto al reiniciar
+            const mensaje = document.getElementById('message-box');
+            mensaje.classList.remove('active');
+            mensaje.style.display = 'none';
+            
+            // Restablecer el texto del botón
+            const boton = document.getElementById('toggle-button');
+            boton.textContent = 'Mostrar pista';
+        }
+
+        // Asegurarse de que los botones estén correctamente posicionados al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const mensaje = document.getElementById('message-box');
+            const boton = document.getElementById('toggle-button');
+            mensaje.style.display = 'none';
+            boton.textContent = 'Mostrar pista';
+        });
+    </script>
 </body>
 </html>
