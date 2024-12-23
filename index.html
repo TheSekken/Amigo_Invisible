@@ -40,6 +40,7 @@
         h1, .message-box, .buttons-container {
             position: relative;
             z-index: 1;
+            text-align: center;
         }
 
         h1 {
@@ -64,6 +65,8 @@
             transform: scale(0.8);
             display: none;
             transition: opacity 0.5s ease, transform 0.5s ease;
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         .message-box.active {
@@ -84,6 +87,8 @@
             text-transform: uppercase;
             box-shadow: 0 5px #A66249;
             transition: all 0.2s ease;
+            width: 80%;
+            max-width: 300px;
         }
 
         button:hover {
@@ -125,6 +130,21 @@
         .message-box p:first-child {
             margin-top: 0;
             font-size: 2rem;
+        }
+
+        /* Asegurarse de que el contenido se ajuste bien a diferentes tamaños de pantalla */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+
+            .message-box p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
