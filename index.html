@@ -24,6 +24,8 @@
             position: relative;
             transform-origin: center center;
             transition: transform 0.5s ease;
+            width: 100%;
+            height: 100vh;
         }
 
         body.overlay::before {
@@ -40,6 +42,7 @@
         h1, .message-box, .buttons-container {
             position: relative;
             z-index: 1;
+            width: 100%;
             text-align: center;
         }
 
@@ -65,8 +68,6 @@
             transform: scale(0.8);
             display: none;
             transition: opacity 0.5s ease, transform 0.5s ease;
-            max-width: 90%;
-            margin: 0 auto;
         }
 
         .message-box.active {
@@ -87,8 +88,6 @@
             text-transform: uppercase;
             box-shadow: 0 5px #A66249;
             transition: all 0.2s ease;
-            width: 80%;
-            max-width: 300px;
         }
 
         button:hover {
@@ -132,19 +131,19 @@
             font-size: 2rem;
         }
 
-        /* Asegurarse de que el contenido se ajuste bien a diferentes tamaños de pantalla */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
+        .buttons-container {
+            display: flex;
+            flex-direction: column; /* Asegura que los botones estén en columna */
+            align-items: center;
+        }
 
-            button {
-                font-size: 1rem;
-            }
-
-            .message-box p {
-                font-size: 1rem;
-            }
+        /* Para que los elementos se adapten automáticamente a la ventana */
+        .buttons-container button,
+        h1,
+        .message-box {
+            width: 80%; /* Ajusta el ancho a un porcentaje de la pantalla */
+            max-width: 500px; /* Limita el tamaño máximo */
+            margin: 10px auto; /* Centrado horizontal */
         }
     </style>
 </head>
